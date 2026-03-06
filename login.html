@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>user | Login</title>
     <!-- logo -->
-     <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./assets/github-logo.png"
+      type="image/x-icon"
+    />
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,9 +25,52 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- vanela css -->
-     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
-    
+    <section class="flex justify-center items-center min-h-screen">
+      <div
+        class="flex flex-col items-center bg-[#ffffff] border-base-300 rounded-xl shadow-lg w-96"
+      >
+        <img class="my-6" src="./assets/github-logo.png" alt="" />
+        <h2 class="text-2xl font-semibold mb-1">GitHub Issues Tracker</h2>
+        <p class="text-gray-400">Sign in to manage your issues</p>
+        <!-- form -->
+        <fieldset class="fieldset border-none w-xs p-4">
+          <label class="font-semibold">Username</label>
+          <input
+            type="text"
+            id="input-user"
+            class="input border-none outline-none shadow-none bg-gray-100 focus:bg-white focus:ring-2 focus:ring-blue-400 transition-all w-full"
+            placeholder="Enter Username"
+          />
+
+          <label class="font-semibold">Password</label>
+          <input
+            type="password"
+            id="userPass"
+            class="input border-none outline-none shadow-none bg-gray-100 focus:bg-white focus:ring-2 focus:ring-blue-400 transition-all w-full"
+            placeholder="Enter Password"
+          />
+
+          <button id="SignInBtn" class="btn bg-blue-500 border-none text-white mt-4 w-full">
+            Sign In
+          </button>
+        </fieldset>
+        <div class="flex items-center gap-3 my-4 w-full px-4">
+          <div style="flex: 1; height: 1px; background-color: #d1d5db"></div>
+          <span class="text-gray-400 text-sm">OR</span>
+          <div style="flex: 1; height: 1px; background-color: #d1d5db"></div>
+        </div>
+        <p class="text-gray-400">Demo Credentials:</p>
+        <div class="bg-slate-200 w-[289px] text-center rounded-md mt-2 mb-8">
+          <h2>Username:<span class="text-gray-500"> admin</span></h2>
+          <h2>Password:<span class="text-gray-500"> admin123</span></h2>
+        </div>
+      </div>
+    </section>
+
+
+    <script src="./js/login.js"></script>
   </body>
 </html>
