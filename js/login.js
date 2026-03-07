@@ -7,7 +7,7 @@ const SignInBtn = document.querySelector('#SignInBtn')
     const passInfo = userPass.value 
     
     if(userInfo == 'admin' && passInfo == 'admin123'){
-        window.location.assign("./index.html")
+        window.location.assign("./desbord.html")
     }else{
         alert('login failed')
     }

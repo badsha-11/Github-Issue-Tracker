@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Issues Tracker</title>
+    <!-- logo -->
+    <link
+      rel="shortcut icon"
+      href="./assets/github-logo.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- tailwind + dasyUi -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- vanela css -->
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body>
+    <header
+      class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100"
+    >
+      <div class="flex justify-between items-center w-11/12 mx-auto py-3">
+        <div class="flex gap-1 items-center">
+          <img class="w-9" src="./assets/github-logo.png" alt="" />
+          <h2 class="font-semibold hidden md:block">GitHub Issues Tracker</h2>
+        </div>
+
+        <div class="flex items-center gap-2 flex-1 max-w-md">
+          <input
+            id="searchInput"
+            type="text"
+            class="search-input flex-1 px-3 py-1.5 rounded-md text-sm border border-gray-300"
+            placeholder="Search issues..."
+          />
+          <button
+            onclick="handleSearch()"
+            class="btn btn-primary btn-search px-3 py-1 rounded-md text-sm cursor-pointer whitespace-nowrap"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </header>
+    <hr class="border-gray-200" />
+
+    <!-- meain -->
+    <main class="w-11/12 mx-auto mt-14">
+      <div class="flex gap-2 border border-gray-100 shadow p-5 rounded-lg">
+        <button
+          onclick="filterIssues('all', this)"
+          class="tab-btn btn btn-primary"
+        >
+          All
+        </button>
+        <button onclick="filterIssues('open', this)" class="tab-btn btn">
+          Open
+        </button>
+        <button onclick="filterIssues('closed', this)" class="tab-btn btn">
+          Closed
+        </button>
+      </div>
+      <div
+        class="flex justify-between items-center p-3 my-4 border-gray-100 shadow rounded-lg"
+      >
+        <div class="flex gap-2 items-center">
+          <div class="bg-gray-100 p-2 rounded-full">
+            <img src="./assets/Aperture.png" alt="" />
+          </div>
+          <div>
+            <!-- count -->
+            <h2 class="font-semibold"><span id="count">0</span> Issues</h2>
+            <p class="text-gray-400 text-xs">
+              Track and manage your project issues
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-1">
+            <div class="w-[12px] h-[12px] bg-green-500 rounded-full"></div>
+            <p>Open</p>
+          </div>
+
+          <div class="flex items-center gap-1">
+            <div class="w-[12px] h-[12px] bg-[#a855f7] rounded-full"></div>
+            <p>Closed</p>
+          </div>
+        </div>
+      </div>
+      <!-- Spinner -->
+      <div id="spinner" class="hidden justify-center items-center py-20">
+        <span class="loading loading-infinity loading-lg text-[#58a6ff]"></span>
+      </div>
+      <!-- issu card container -->
+      <div
+        id="issuesContainer"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10"
+      >
+        <!-- cards -->
+      </div>
+      <!-- empty state -->
+      <div id="emptyState" class="hidden text-center py-20">
+        <p class="text-[#8b949e] text-lg">No issues found</p>
+        <p class="text-[#6e7681] text-sm mt-1">
+          Try a different search or filter
+        </p>
+      </div>
+    </main>
+    <!-- Modal -->
+    <div
+      id="modal"
+      class="fixed inset-0 z-50 hidden flex justify-center items-center px-4"
+    >
+      <div class="modal-overlay absolute inset-0" onclick="closeModal()"></div>
+      <div class="modal-box-custom relative z-10 rounded-xl p-6">
+        <button
+          onclick="closeModal()"
+          class="absolute top-4 right-4 text-[#8b949e] hover:text-[#e6edf3] text-xl cursor-pointer"
+        >
+          ✕
+        </button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <!-- modal -->
+    <dialog id="my_modal_2" class="modal">
+      <div class="modal-box">
+        <div id="modal-content-area">
+          <h3 class="text-lg font-bold">Loading...</h3>
+          <p class="py-4">Please wait while we fetch issue details.</p>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>
