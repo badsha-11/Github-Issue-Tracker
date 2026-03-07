@@ -32,26 +32,29 @@
     <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
-    <header class="flex justify-between w-11/12 mx-auto">
-      <div class="flex gap-1 py-3 items-center">
-        <img class="w-9" src="./assets/github-logo.png" class="" alt="" />
-        <h2 class="font-semibold hidden md:block">GitHub Issues Tracker</h2>
-      </div>
-      <!-- scech -->
+    <header
+      class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100"
+    >
+      <div class="flex justify-between items-center w-11/12 mx-auto py-3">
+        <div class="flex gap-1 items-center">
+          <img class="w-9" src="./assets/github-logo.png" alt="" />
+          <h2 class="font-semibold hidden md:block">GitHub Issues Tracker</h2>
+        </div>
 
-      <div class="flex items-center gap-2 flex-1 max-w-md">
-        <input
-          id="searchInput"
-          type="text"
-          class="search-input flex-1 px-3 py-1.5 rounded-md text-sm"
-          placeholder="Search issues..."
-        />
-        <button
-          onclick="handleSearch()"
-          class="btn btn-primary btn-search px-3 py-1 rounded-md text-sm cursor-pointer whitespace-nowrap"
-        >
-          Search
-        </button>
+        <div class="flex items-center gap-2 flex-1 max-w-md">
+          <input
+            id="searchInput"
+            type="text"
+            class="search-input flex-1 px-3 py-1.5 rounded-md text-sm border border-gray-300"
+            placeholder="Search issues..."
+          />
+          <button
+            onclick="handleSearch()"
+            class="btn btn-primary btn-search px-3 py-1 rounded-md text-sm cursor-pointer whitespace-nowrap"
+          >
+            Search
+          </button>
+        </div>
       </div>
     </header>
     <hr class="border-gray-200" />
@@ -65,10 +68,10 @@
         >
           All
         </button>
-        <button onclick="filterIssues('all', this)" class="tab-btn btn">
+        <button onclick="filterIssues('open', this)" class="tab-btn btn">
           Open
         </button>
-        <button onclick="filterIssues('all', this)" class="tab-btn btn">
+        <button onclick="filterIssues('closed', this)" class="tab-btn btn">
           Closed
         </button>
       </div>
@@ -110,49 +113,6 @@
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10"
       >
         <!-- cards -->
-        <div class="shadow-md rounded-lg px-3">
-          <div class="space-y-3 p-4">
-            <div class="flex justify-between items-center">
-              <img
-                class="w-[30px] h-[30px]"
-                src="./assets/Open-Status.png"
-                alt=""
-              />
-              <h3
-                class="bg-red-100 font-semibold text-red-600 py-1 px-5 rounded-3xl"
-              >
-                HIGH
-              </h3>
-            </div>
-            <h2 class="text-sm font-semibold">
-              Fix navigation menu on mobile devices
-            </h2>
-            <p class="text-[#64748b] text-xs">
-              The navigation menu doesn't collapse properly on mobile devices...
-            </p>
-            <div class="flex gap-3">
-              <div>
-                <p
-                  class="bg-red-100 text-xs font-semibold border border-red-600 text-red-600 py-1 px-4 rounded-3xl"
-                >
-                  <i class="fa-solid fa-bug"></i> BUG
-                </p>
-              </div>
-              <div>
-                <p
-                  class="bg-yellow-100 text-xs font-semibold border border-yellow-600 text-yellow-600 py-1 px-4 rounded-3xl"
-                >
-                  help wanted
-                </p>
-              </div>
-            </div>
-          </div>
-          <hr class="border-1 border-gray-200  my-2" />
-          <div class=" my-2 space-y-1">
-            <p class="text-gray-400 text-xs">#1 by john_doe</p>
-            <p class="text-gray-400 text-xs">1/15/2024</p>
-          </div>
-        </div>
       </div>
       <!-- empty state -->
       <div id="emptyState" class="hidden text-center py-20">

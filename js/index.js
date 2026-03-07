@@ -1,15 +1,13 @@
-const API = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
-
+let allIssues = [];
+let API =("https://phi-lab-server.vercel.app/api/v1/lab/issues")
 async function loadIssues(){
     showSpinner();
-    const res = await fetch(API)
-const data = await res.json()
-
-displayIssues(data.data)
-
-hideSpinner()
+    const res = await fetch(API);
+    const data = await res.json();
+    allIssues = data.data; 
+    displayIssues(allIssues);
+    hideSpinner();
 }
-
 // ____________felter btns________________
 function filterIssues(filter, btn) {
   showSpinner();
@@ -30,38 +28,99 @@ function filterIssues(filter, btn) {
 }
 
 // _________________display issue__________________
-
 function displayIssues(issues) {
   const container = document.getElementById("issuesContainer");
   const emptyState = document.getElementById("emptyState");
-  container.innerHTML = "";
-// _______________issu mt htakle eita____________
-  if (!issues || issues.length === 0) {
-    emptyState.classList.remove("hidden");
+
+  
+  if (!container) {
+    console.error("Container element not found!");
     return;
   }
-  emptyState.classList.add("hidden");
+
+  
+  container.innerHTML = "";
+
+  
+  if (!issues || !Array.isArray(issues) || issues.length === 0) {
+    if (emptyState) emptyState.classList.remove("hidden");
+    return;
+  }
+
+  
+  if (emptyState) emptyState.classList.add("hidden");
 
   issues.forEach((issue) => {
-    const isOpen = issue.status?.toLowerCase() === "open";
-    const card = document.createElement("div");
-    card.className = `issue-card ${isOpen ? "open" : "closed"} p-4 flex flex-col gap-2`;
-    card.onclick = () => openModal(issue._id || issue.id);
-    card.innerHTML = `
-       
-    `;
-  });
+  const isOpen = issue.status?.toLowerCase() === "open";
+  const card = document.createElement("div");
+  
+  // কার্ডের মেইন ক্লাস (এখানেই সব বর্ডার আর শ্যাডো থাকবে)
+  card.className = `flex flex-col justify-between bg-white rounded-lg shadow-md border-t-4 cursor-pointer hover:-translate-y-1 transition-transform p-4 ${
+    isOpen ? "border-t-green-500" : "border-t-purple-500"
+  }`;
+
+  card.onclick = () => {
+    if (typeof openModal === "function") {
+      openModal(issue._id || issue.id);
+    }
+  };
+
+  
+  card.innerHTML = `
+    <div class="space-y-3">
+      <div class="flex justify-between items-center">
+        <img class="w-[30px] h-[30px]" src="${isOpen ? './assets/Open-Status.png' : './assets/Closed-Status.png'}" alt="status" />
+        <h3 class="bg-red-100 font-semibold text-red-600 py-1 px-5 rounded-3xl text-xs">
+          ${issue.priority || "HIGH"}
+        </h3>
+      </div>
+      <h2 class="text-sm font-semibold line-clamp-1">${issue.title || "Untitled"}</h2>
+      <p class="text-[#64748b] text-xs line-clamp-2">${issue.description || "No description provided."}</p>
+      <div class="flex gap-2">
+        <span class="bg-red-100 text-[10px] font-semibold border border-red-600 text-red-600 py-1 px-3 rounded-3xl">
+          <i class="fa-solid fa-bug"></i> BUG
+        </span>
+        <span class="bg-yellow-100 text-[10px] font-semibold border border-yellow-600 text-yellow-600 py-1 px-3 rounded-3xl">
+          help wanted
+        </span>
+      </div>
+    </div>
+    
+    <div class="mt-4">
+      <hr class="border-gray-100 mb-2" />
+      <p class="text-gray-400 text-[10px]">#${issue.id?.toString().slice(-4) || '1'} by ${issue.author || 'User'}</p>
+      <p class="text-gray-400 text-[10px]">${new Date().toLocaleDateString()}</p>
+    </div>
+  `;
+
+  container.appendChild(card);
+});
 }
 
 // _____________scrch _________________
 async function handleSearch() {
   const text = document.getElementById("searchInput").value;
-  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=%7BsearchText%7D${text}`;
+  
+  if (!text.trim()) {
+    displayIssues(allIssues);
+    return;
+  }
+
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`;
 
   showSpinner();
-  const res = await fetch(url);
-  const data = await res.json();
-  displayIssues(data.data);
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    displayIssues(data.data);
+    
+    const countElement = document.getElementById("count");
+    if (countElement) countElement.innerText = data.data.length;
+    
+  } catch (error) {
+    console.error("Search failed:", error);
+  }
   hideSpinner();
 }
 
@@ -79,14 +138,7 @@ const hideSpinner = () => {
 
 
 
-
-
-
-
-
-
-
-
+loadIssues()
 
 
 
