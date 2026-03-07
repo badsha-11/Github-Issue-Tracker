@@ -23,6 +23,10 @@ function filterIssues(filter, btn) {
     filter === "all"
       ? allIssues
       : allIssues.filter((i) => i.status?.toLowerCase() === filter);
+      const count = document.getElementById('count')
+      if(count){
+        count.innerText = filtered.length
+      }
   displayIssues(filtered);
   hideSpinner();
 }
